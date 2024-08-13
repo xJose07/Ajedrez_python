@@ -30,6 +30,3 @@ while not acaba:
 tab = Tablero()
 
 tab.imprimirTablero()
-
-
-
