@@ -1,1 +1,3 @@
 string="hola"
+print(string)
+
