@@ -44,3 +44,17 @@ class Tablero():
                     buida = False
         return buida
 
+    def colocarFichasInicializacion(self):
+        for i in range(2):
+            for j in range(8):
+                self.tab[i][j] = "X"
+        for i in range(6, 8):
+            for j in range(8):
+                self.tab[i][j] = "X"
+                    
+    def moverFichas(self, fila1, columna1, fila2, columna2):
+        if self.tab[fila1][columna1] == "X" and self.tab[fila2][columna2] != "X":
+            self.tab[fila1][columna1] = "-"
+            self.tab[fila2][columna2] = "X"
+        else:
+            print("\nMovimiento de pieza no válido.\n")

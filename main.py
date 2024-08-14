@@ -30,3 +30,15 @@ while not acaba:
 tab = Tablero()
 
 tab.imprimirTablero()
+
+tab.colocarFichasInicializacion()
+
+tab.imprimirTablero()
+
+tab.moverFichas(0, 0, 1, 0)
+
+tab.imprimirTablero()
+
+tab.moverFichas(0, 7, 4, 7)
+
+tab.imprimirTablero()
