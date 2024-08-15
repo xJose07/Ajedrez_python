@@ -35,7 +35,7 @@ tab.colocarFichasInicializacion()
 
 tab.imprimirTablero()
 
-#tab.moverFichas(0, 0, 1, 0)
+#tab.moverFichas(0, 0, 3, 3)
 
 #tab.imprimirTablero()
 
