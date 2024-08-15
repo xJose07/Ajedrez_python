@@ -1,4 +1,4 @@
-from Classes.tablero import Tablero
+from Classes.Tablero import Tablero
 
 '''
 acaba = False
@@ -42,3 +42,5 @@ tab.imprimirTablero()
 #tab.moverFichas(0, 7, 4, 7)
 
 #tab.imprimirTablero()
+
+#tab.printTorre()

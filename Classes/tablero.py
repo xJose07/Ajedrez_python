@@ -1,4 +1,5 @@
 from Classes.Figuras.Torre import Torre
+from Classes.Figura import Figura
 class Tablero():
     def __init__(self):
         self.tab=self.crearTablero()
@@ -21,7 +22,10 @@ class Tablero():
         for i in range(len(self.tab)):
             print(i,end=s)
             for j in range(len(self.tab[0])):
-                print(self.tab[i][j][0],end=s)
+                if type(self.tab[i][j]) == Torre:# or type(self.tab[i][j]) == Alfil or type(self.tab[i][j]) == Caballo or type(self.tab[i][j])==Reina or type(self.tab[i][j])==Rey:
+                    print(self.tab[i][j].getSimbol(),end=s)
+                else:
+                    print(self.tab[i][j][0],end=s)
             print()
             
     def traducirIndice(self,fila,col):
@@ -46,13 +50,12 @@ class Tablero():
         return buida
 
     def colocarFichasInicializacion(self):
-        
         for i in range(2):
             if i == 0:
                 for j in range(8):
                     if j == 0 or j==7:
                         tor=Torre()
-                        self.tab[i][j] = tor.simbol #poner aqui los 'objetos/fichas' de las torres
+                        self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
                     if j == 1 or j == 6:
                         self.tab[i][j] = "C" #poner aqui los 'objetos/fichas' de los caballos
                     if j == 2 or j == 5:
@@ -72,7 +75,7 @@ class Tablero():
                 for j in range(8):
                     if j == 0 or j==7:
                         tor=Torre()
-                        self.tab[i][j] = tor.simbol #poner aqui los 'objetos/fichas' de las torres
+                        self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
                     if j == 1 or j == 6:
                         self.tab[i][j] = "C" #poner aqui los 'objetos/fichas' de los caballos
                     if j == 2 or j == 5:
@@ -91,3 +94,6 @@ class Tablero():
             self.tab[fila2][columna2] = "X"
         else:
             print("\nMovimiento de pieza no válido.\n")
+            
+    #def printTorre(self):
+     #   print(self.tab[0][0].hola)
