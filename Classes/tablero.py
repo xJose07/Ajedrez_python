@@ -1,3 +1,4 @@
+from Classes.Figuras.Torre import Torre
 class Tablero():
     def __init__(self):
         self.tab=self.crearTablero()
@@ -45,12 +46,44 @@ class Tablero():
         return buida
 
     def colocarFichasInicializacion(self):
+        
         for i in range(2):
-            for j in range(8):
-                self.tab[i][j] = "X"
+            if i == 0:
+                for j in range(8):
+                    if j == 0 or j==7:
+                        tor=Torre()
+                        self.tab[i][j] = tor.simbol #poner aqui los 'objetos/fichas' de las torres
+                    if j == 1 or j == 6:
+                        self.tab[i][j] = "C" #poner aqui los 'objetos/fichas' de los caballos
+                    if j == 2 or j == 5:
+                        self.tab[i][j] = "A" #poner aqui los 'objetos/fichas' de los alfiles
+                    if j == 3:
+                        self.tab[i][j] = "Q" #poner aqui el 'objeto/ficha' de la reina
+                    if j == 4:
+                        self.tab[i][j] = "K" #poner aqui el 'objeto/ficha' del rey
+            if i == 1:
+                for j in range(8):
+                    self.tab[i][j] = "X" #poner aqui los 'objetos/fichas' de los peones negros
         for i in range(6, 8):
-            for j in range(8):
-                self.tab[i][j] = "X"
+            if i == 6:
+                for j in range(8):
+                    self.tab[i][j] = "X" #poner aqui los 'objetos/fichas' de los peones blancos
+            if i == 7:
+                for j in range(8):
+                    if j == 0 or j==7:
+                        tor=Torre()
+                        self.tab[i][j] = tor.simbol #poner aqui los 'objetos/fichas' de las torres
+                    if j == 1 or j == 6:
+                        self.tab[i][j] = "C" #poner aqui los 'objetos/fichas' de los caballos
+                    if j == 2 or j == 5:
+                        self.tab[i][j] = "A" #poner aqui los 'objetos/fichas' de los alfiles
+                    if j == 3:
+                        self.tab[i][j] = "K" #poner aqui el 'objeto/ficha' del rey
+                    if j == 4:
+                        self.tab[i][j] = "Q" #poner aqui el 'objeto/ficha' de la reina
+        
+            
+        
                     
     def moverFichas(self, fila1, columna1, fila2, columna2):
         if self.tab[fila1][columna1] == "X" and self.tab[fila2][columna2] != "X":
