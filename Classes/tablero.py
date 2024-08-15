@@ -5,8 +5,10 @@ from Classes.Figuras.Peon_B import Peon_B
 from Classes.Figuras.Peon_N import Peon_N
 from Classes.Figuras.Rey import Rey
 from Classes.Figuras.Reina import Reina
-
 from Classes.Figura import Figura
+from Classes.Jugador import Jugador
+
+
 class Tablero():
     def __init__(self):
         self.tab=self.crearTablero()
@@ -103,8 +105,18 @@ class Tablero():
                         reina = Reina()
                         self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
         
-            
+    def crearFiguras(self):     
+        jugador = Jugador()
+        jugador.añadirDiccionario("torre", [Torre(), Torre()])
+        jugador.añadirDiccionario("caballo", [Caballo(), Caballo()])
+        jugador.añadirDiccionario("alfil", [Alfil(), Alfil()])
+        jugador.añadirDiccionario("Rey", [Rey()])
+        jugador.añadirDiccionario("reina", [Reina()])
+        jugador.añadirDiccionario("peon_B", [Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B()])
         
+        #print(jugador.devolverDiccionario())
+                    
+                    
                     
     def moverFichas(self, fila1, columna1, fila2, columna2):
         if self.tab[fila1][columna1] == Torre:

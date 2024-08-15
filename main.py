@@ -44,3 +44,5 @@ tab.imprimirTablero()
 #tab.imprimirTablero()
 
 #tab.printTorre()
+
+tab.crearFiguras()
