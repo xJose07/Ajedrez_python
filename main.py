@@ -1,4 +1,4 @@
-from Classes.Tablero import Tablero
+from Classes.Tablero import Tablero, Jugador
 
 '''
 acaba = False
@@ -27,13 +27,21 @@ while not acaba:
         pass
 '''
 
-tab = Tablero()
+#Creamos los jugadores, y entonces creamos el tablero
+jugador1 = Jugador()
+jugador2 = Jugador()
+tab = Tablero(jugador1, jugador2)
 
 #tab.imprimirTablero()
 
 tab.colocarFichasInicializacion()
 
 tab.imprimirTablero()
+
+tab.crearFiguras(jugador1)
+
+print(tab.jugador1.devolverDiccionario())
+
 
 #tab.moverFichas(0, 0, 3, 3)
 
@@ -45,4 +53,3 @@ tab.imprimirTablero()
 
 #tab.printTorre()
 
-tab.crearFiguras()

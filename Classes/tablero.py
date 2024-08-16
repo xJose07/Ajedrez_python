@@ -10,9 +10,11 @@ from Classes.Jugador import Jugador
 
 
 class Tablero():
-    def __init__(self):
+    def __init__(self, jugador1, jugador2):
         self.tab=self.crearTablero()
         self.indexf=list('ABCDEFGH')
+        self.jugador1 = jugador1
+        self.jugador2 = jugador2
 
     def crearTablero(self):
         tab=[]
@@ -105,8 +107,8 @@ class Tablero():
                         reina = Reina()
                         self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
         
-    def crearFiguras(self):     
-        jugador = Jugador()
+    def crearFiguras(self, jugador):     
+        #jugador = Jugador()
         jugador.añadirDiccionario("torre", [Torre(), Torre()])
         jugador.añadirDiccionario("caballo", [Caballo(), Caballo()])
         jugador.añadirDiccionario("alfil", [Alfil(), Alfil()])
@@ -116,8 +118,7 @@ class Tablero():
         
         #print(jugador.devolverDiccionario())
                     
-                    
-                    
+
     def moverFichas(self, fila1, columna1, fila2, columna2):
         if self.tab[fila1][columna1] == Torre:
             print("Torre seleccionada")
