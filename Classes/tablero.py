@@ -6,7 +6,7 @@ from Classes.Figuras.Peon_N import Peon_N
 from Classes.Figuras.Rey import Rey
 from Classes.Figuras.Reina import Reina
 from Classes.Figura import Figura
-from Classes.Jugador import Jugador
+
 
 
 class Tablero():
@@ -61,24 +61,24 @@ class Tablero():
                     buida = False
         return buida
 
-    def colocarFichasInicializacion(self):
+    def colocarFichasInicializacion(self, color1, color2):
         for i in range(2):
             if i == 0:
                 for j in range(8):
                     if j == 0 or j==7:
-                        tor = Torre()
+                        tor = Torre(color1)
                         self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
                     if j == 1 or j == 6:
-                        cab = Caballo()
+                        cab = Caballo(color1)
                         self.tab[i][j] = cab #poner aqui los 'objetos/fichas' de los caballos
                     if j == 2 or j == 5:
-                        alf = Alfil()
+                        alf = Alfil(color1)
                         self.tab[i][j] = alf #poner aqui los 'objetos/fichas' de los alfiles
                     if j == 3:
-                        reina = Reina()
+                        reina = Reina(color1)
                         self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
                     if j == 4:
-                        rey = Rey()
+                        rey = Rey(color1)
                         self.tab[i][j] = rey #poner aqui el 'objeto/ficha' del rey
             if i == 1:
                 for j in range(8):
@@ -92,31 +92,36 @@ class Tablero():
             if i == 7:
                 for j in range(8):
                     if j == 0 or j==7:
-                        tor=Torre()
+                        tor=Torre(color2)
                         self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
                     if j == 1 or j == 6:
-                        cab = Caballo()
+                        cab = Caballo(color2)
                         self.tab[i][j] = cab #poner aqui los 'objetos/fichas' de los caballos
                     if j == 2 or j == 5:
-                        alf = Alfil()
+                        alf = Alfil(color2)
                         self.tab[i][j] = alf #poner aqui los 'objetos/fichas' de los alfiles
                     if j == 3:
-                        rey = Rey()
+                        rey = Rey(color2)
                         self.tab[i][j] = rey #poner aqui el 'objeto/ficha' del rey
                     if j == 4:
-                        reina = Reina()
+                        reina = Reina(color2)
                         self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
         
-    def crearFiguras(self, jugador):     
-        #jugador = Jugador()
-        jugador.añadirDiccionario("torre", [Torre(), Torre()])
-        jugador.añadirDiccionario("caballo", [Caballo(), Caballo()])
-        jugador.añadirDiccionario("alfil", [Alfil(), Alfil()])
-        jugador.añadirDiccionario("Rey", [Rey()])
-        jugador.añadirDiccionario("reina", [Reina()])
-        jugador.añadirDiccionario("peon_B", [Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B()])
-        
-        #print(jugador.devolverDiccionario())
+    def crearFiguras(self, jugador, color):     
+        if color == "white":
+            jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
+            jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
+            jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
+            jugador.añadirDiccionario("Rey", [Rey(color)])
+            jugador.añadirDiccionario("reina", [Reina(color)])
+            jugador.añadirDiccionario("peon_B", [Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B()])
+        elif color == "black":
+            jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
+            jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
+            jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
+            jugador.añadirDiccionario("Rey", [Rey(color)])
+            jugador.añadirDiccionario("reina", [Reina(color)])
+            jugador.añadirDiccionario("peon_N", [Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N()])
                     
 
     def moverFichas(self, fila1, columna1, fila2, columna2):

@@ -1,5 +1,13 @@
 from ..Figura import *
 class Reina(Figura):
-    def __init__(self):
+    def __init__(self, color):
         Figura.__init__(self)
-        self.simbol = "♕"
+        self.simbolN = "♕"        
+        self.simbol = "♛"
+        self.color = color
+        
+    def getSimbol(self):
+        if self.color == "white":
+            return self.simbol
+        elif self.color == "black":
+            return self.simbolN   
