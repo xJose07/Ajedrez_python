@@ -50,6 +50,18 @@ tab.colocarFichasInicializacion(colorB, colorW)
 tab.imprimirTablero()
 
 
+#tab.moverFicha(1, 0)
+
+#tab.imprimirTablero()
+
+
+
+
+tab.posicionFichaEnemiga(1, 0, 1, 0, jugador1, jugador2)
+
+#Los objetos del tablero no concuerdan con los de los diccionarios de los jugadores. Al crear el tablero se deben
+#usar las piezas que están en los diccionarios de los jugadores. Una vez este hecho, podremos continuar con el movimiento.
+
 
 
 #print(tab.jugador1.devolverDiccionario())

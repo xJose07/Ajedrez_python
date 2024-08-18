@@ -54,13 +54,19 @@ class Tablero():
        
     #Comprobar si la casilla está vacia (al colocar las figuras despues del input del usuario)
     def areaVacia(self,x,y):
-        buida = True
+        buida = False
         for i in range(x[0],y[0]+1):
             for j in range(x[1],y[1]+1):
-                if self.tab[i][j][0] != '-':
-                    buida = False
+                if self.tab[i][j][0] == '-':
+                    buida = True
         return buida
 
+    def areaVacia2(self,x,y):
+        buida = False
+        if self.tab[x][y] == '-':
+            buida = True
+        return buida
+    
     def colocarFichasInicializacion(self, color1, color2):
         for i in range(2):
             if i == 0:
@@ -124,16 +130,45 @@ class Tablero():
             jugador.añadirDiccionario("peon_N", [Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N()])
                     
 
-    def moverFichas(self, fila1, columna1, fila2, columna2):
-        if self.tab[fila1][columna1] == Torre:
-            print("Torre seleccionada")
 
-
-        if self.tab[fila1][columna1] == "X" and self.tab[fila2][columna2] != "X":
-            self.tab[fila1][columna1] = "-"
-            self.tab[fila2][columna2] = "X"
+    def moverFicha(self, filaInicial, columnaInicial):
+        movimientoFigura = self.tab[filaInicial][columnaInicial].movimiento()
+        filaFinal = filaInicial + movimientoFigura[0]
+        columnaFinal = columnaInicial + movimientoFigura[1]
+        if self.areaVacia2(filaFinal, columnaFinal):
+            print(f"\nSe ha seleccionado {self.tab[filaInicial][columnaInicial].nombre}\n")
+            figura = self.tab[filaInicial][columnaInicial]
+            self.tab[filaFinal][columnaFinal] = figura
+            self.tab[filaInicial][columnaInicial] = '-'
         else:
             print("\nMovimiento de pieza no válido.\n")
-            
-    #def printTorre(self):
-     #   print(self.tab[0][0].hola)
+
+
+    def posicionFichaEnemiga(self, filaInicial, columnaInicial, filaFinal, columnaFinal, jugador1, jugador2):
+        if self.tab[filaInicial][columnaInicial] in jugador1.diccionario.values() and self.tab[filaInicial][columnaInicial] != '-':
+            print("La figura seleccionada pertenece al jugador1")
+            if self.tab[filaFinal][columnaFinal] not in jugador1.diccionario.values() and self.tab[filaFinal][columnaFinal] != '-':
+                print("El jugador ha movido su figura a una casilla con una figura enemiga")
+            elif self.tab[filaFinal][columnaFinal] == '-':
+                print("El jugador ha movido su figura a una casilla vacía")
+            else:
+                print("El jugador ha movido su figura a una casilla con una figura própia. Movimiento no válido")
+
+        elif self.tab[filaInicial][columnaInicial] in jugador2.diccionario.values() and self.tab[filaInicial][columnaInicial] != '-':
+            print("La figura seleccionada pertenece al jugador2")
+        elif self.tab[filaInicial][columnaInicial] == '-':
+            print("Se ha seleccionado una casilla vacía")
+
+        else:
+            print("La figura seleccionada pertenece al jugador enemigo")
+            print(jugador1.diccionario.values())
+            print("\n")
+            print(jugador2.diccionario.values())
+            print(self.tab[filaInicial][columnaInicial])
+            print(self.tab[filaInicial][columnaInicial+1])
+            print(self.tab[filaInicial][columnaInicial+2])
+            print(self.tab[filaInicial][columnaInicial+3])
+            print(self.tab[filaInicial][columnaInicial+4])
+            print(self.tab[filaInicial][columnaInicial+5])
+            print(self.tab[filaInicial][columnaInicial+6])
+            print(self.tab[filaInicial][columnaInicial+7])
