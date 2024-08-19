@@ -53,27 +53,19 @@ class Tablero():
             return False
        
     #Comprobar si la casilla está vacia (al colocar las figuras despues del input del usuario)
-    def areaVacia(self,x,y):
-        buida = False
-        for i in range(x[0],y[0]+1):
-            for j in range(x[1],y[1]+1):
-                if self.tab[i][j][0] == '-':
-                    buida = True
-        return buida
 
-    def areaVacia2(self,x,y):
+    def areaVacia(self,x,y):
         buida = False
         if self.tab[x][y] == '-':
             buida = True
         return buida
     
-    def colocarFichasInicializacion(self, color1, color2):
+    def colocarFichasInicializacion(self, color1, color2, jugador1, jugador2):
         for i in range(2):
             if i == 0:
                 for j in range(8):
                     if j == 0 or j==7:
-                        tor = Torre(color1)
-                        self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
+                        self.tab[i][j] = jugador2.diccionario['torre'][0]#poner aqui los 'objetos/fichas' de las torres
                     if j == 1 or j == 6:
                         cab = Caballo(color1)
                         self.tab[i][j] = cab #poner aqui los 'objetos/fichas' de los caballos
@@ -135,7 +127,7 @@ class Tablero():
         movimientoFigura = self.tab[filaInicial][columnaInicial].movimiento()
         filaFinal = filaInicial + movimientoFigura[0]
         columnaFinal = columnaInicial + movimientoFigura[1]
-        if self.areaVacia2(filaFinal, columnaFinal):
+        if self.areaVacia(filaFinal, columnaFinal):
             print(f"\nSe ha seleccionado {self.tab[filaInicial][columnaInicial].nombre}\n")
             figura = self.tab[filaInicial][columnaInicial]
             self.tab[filaFinal][columnaFinal] = figura
@@ -163,12 +155,12 @@ class Tablero():
             print("La figura seleccionada pertenece al jugador enemigo")
             print(jugador1.diccionario.values())
             print("\n")
-            print(jugador2.diccionario.values())
-            print(self.tab[filaInicial][columnaInicial])
-            print(self.tab[filaInicial][columnaInicial+1])
-            print(self.tab[filaInicial][columnaInicial+2])
-            print(self.tab[filaInicial][columnaInicial+3])
-            print(self.tab[filaInicial][columnaInicial+4])
-            print(self.tab[filaInicial][columnaInicial+5])
-            print(self.tab[filaInicial][columnaInicial+6])
-            print(self.tab[filaInicial][columnaInicial+7])
+           # print(jugador2.diccionario.values())
+           # print(self.tab[filaInicial][columnaInicial])
+           # print(self.tab[filaInicial][columnaInicial+1])
+           # print(self.tab[filaInicial][columnaInicial+2])
+           # print(self.tab[filaInicial][columnaInicial+3])
+           # print(self.tab[filaInicial][columnaInicial+4])
+           # print(self.tab[filaInicial][columnaInicial+5])
+           # print(self.tab[filaInicial][columnaInicial+6])
+           # print(self.tab[filaInicial][columnaInicial+7])

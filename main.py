@@ -10,17 +10,21 @@ while not acaba:
             nova[tria]=Crea()
             while not va.partidaAcabada():
                 tau.imprimeixTauler(dev=False)
+                
+                -----------------------------------------------------------------------------
                 fila = None
                 while not filaOK(fila):
                     try:
-                        fila = int(input("\nIntrodueix la fila 0-9: "))
+                        fila = int(input("\nIntrodueix la fila 0-7: "))
                     except ValueError:
                         print("No és un dígit")
                 
                 col = None
                 while not colOK(col):
-                    col = input("Introdueix la columna A-J: ").upper()
+                    col = input("Introdueix la columna A-H: ").upper()
                 
+                
+                -----------------------------------------------------------------------------
                 #fem el tret
                 tret(nova[tria],fila,col,lang)
 
@@ -45,7 +49,7 @@ tab.crearFiguras(jugador1, colorW)
 colorB = "black"
 tab.crearFiguras(jugador2, colorB)
 
-tab.colocarFichasInicializacion(colorB, colorW)
+tab.colocarFichasInicializacion(colorB, colorW, jugador1, jugador2)
 
 tab.imprimirTablero()
 
