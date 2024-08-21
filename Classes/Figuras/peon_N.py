@@ -9,7 +9,7 @@ class Peon_N(Figura):
     def movimiento(self):
         if self.primerMovimiento:
             self.primerMovimiento = False
-            return [2, 0]
+            return [-2, 0]
             
         else:
-            return [1, 0]
+            return [-1, 0]

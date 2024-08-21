@@ -43,7 +43,7 @@ class Tablero():
     def traducirIndice(self,fila,col):
         return fila,self.indexf.index(col) #devolvemos la fila y la columna para poder trabajar con las coordenadas en el tablero
     
-    def filaOK(f):
+    def filaOK(self, f):
         return f in range(8)
 
     def colOK(self, col):
@@ -64,79 +64,91 @@ class Tablero():
         for i in range(2):
             if i == 0:
                 for j in range(8):
-                    if j == 0 or j==7:
-                        self.tab[i][j] = jugador2.diccionario['torre'][0]#poner aqui los 'objetos/fichas' de las torres
-                    if j == 1 or j == 6:
-                        cab = Caballo(color1)
-                        self.tab[i][j] = cab #poner aqui los 'objetos/fichas' de los caballos
-                    if j == 2 or j == 5:
-                        alf = Alfil(color1)
-                        self.tab[i][j] = alf #poner aqui los 'objetos/fichas' de los alfiles
+                    if j == 0:
+                        self.tab[i][j] = jugador2.diccionario['torre'][0]#poner aqui los 'objetos/fichas' de una de las torres
+                    if j==7:
+                        self.tab[i][j] = jugador2.diccionario['torre'][1]#poner aqui los 'objetos/fichas' de una de las torres
+                    if j == 1:
+                        self.tab[i][j] = jugador2.diccionario['caballo'][0]#poner aqui los 'objetos/fichas' de uno de los caballos
+                    if j == 6:
+                        self.tab[i][j] = jugador2.diccionario['caballo'][1]#poner aqui los 'objetos/fichas' de uno de los caballos
+                    if j == 2:
+                        self.tab[i][j] = jugador2.diccionario['alfil'][0]#poner aqui los 'objetos/fichas' de uno de los alfiles
+                    if j == 5:
+                        self.tab[i][j] = jugador2.diccionario['alfil'][1]#poner aqui los 'objetos/fichas' de uno de los alfiles
                     if j == 3:
-                        reina = Reina(color1)
-                        self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
+                        self.tab[i][j] = jugador2.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
                     if j == 4:
-                        rey = Rey(color1)
-                        self.tab[i][j] = rey #poner aqui el 'objeto/ficha' del rey
+                        self.tab[i][j] = jugador2.diccionario['rey'][0]#poner aqui los 'objetos/fichas' del rey
             if i == 1:
                 for j in range(8):
-                    peon_N = Peon_N()
-                    self.tab[i][j] = peon_N #poner aqui los 'objetos/fichas' de los peones negros
+                    self.tab[i][j] = jugador2.diccionario['peon_N'][j]#poner aqui los 'objetos/fichas' de los peones negros
         for i in range(6, 8):
             if i == 6:
                 for j in range(8):
-                    peon_B = Peon_B()
-                    self.tab[i][j] = peon_B #poner aqui los 'objetos/fichas' de los peones blancos
+                    self.tab[i][j] = jugador1.diccionario['peon_B'][j]#poner aqui los 'objetos/fichas' de los peones blancos
             if i == 7:
                 for j in range(8):
-                    if j == 0 or j==7:
-                        tor=Torre(color2)
-                        self.tab[i][j] = tor #poner aqui los 'objetos/fichas' de las torres
-                    if j == 1 or j == 6:
-                        cab = Caballo(color2)
-                        self.tab[i][j] = cab #poner aqui los 'objetos/fichas' de los caballos
-                    if j == 2 or j == 5:
-                        alf = Alfil(color2)
-                        self.tab[i][j] = alf #poner aqui los 'objetos/fichas' de los alfiles
+                    if j == 0:
+                        self.tab[i][j] = jugador1.diccionario['torre'][0]#poner aqui los 'objetos/fichas' de una de las torres
+                    if j == 7:
+                        self.tab[i][j] = jugador1.diccionario['torre'][1]#poner aqui los 'objetos/fichas' de una de las torres
+                    if j == 1:
+                        self.tab[i][j] = jugador1.diccionario['caballo'][0]#poner aqui los 'objetos/fichas' de uno de los caballos
+                    if j == 6:
+                        self.tab[i][j] = jugador1.diccionario['caballo'][1]#poner aqui los 'objetos/fichas' de uno de los caballos
+                    if j == 2:
+                        self.tab[i][j] = jugador1.diccionario['alfil'][0]#poner aqui los 'objetos/fichas' de uno de los alfiles
+                    if j == 5:
+                        self.tab[i][j] = jugador1.diccionario['alfil'][1]#poner aqui los 'objetos/fichas' de uno de los alfiles
                     if j == 3:
-                        rey = Rey(color2)
-                        self.tab[i][j] = rey #poner aqui el 'objeto/ficha' del rey
+                        self.tab[i][j] = jugador1.diccionario['rey'][0]#poner aqui los 'objetos/fichas' del rey
                     if j == 4:
-                        reina = Reina(color2)
-                        self.tab[i][j] = reina #poner aqui el 'objeto/ficha' de la reina
+                        self.tab[i][j] = jugador1.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
         
     def crearFiguras(self, jugador, color):     
         if color == "white":
             jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
             jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
             jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
-            jugador.añadirDiccionario("Rey", [Rey(color)])
+            jugador.añadirDiccionario("rey", [Rey(color)])
             jugador.añadirDiccionario("reina", [Reina(color)])
             jugador.añadirDiccionario("peon_B", [Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B()])
         elif color == "black":
             jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
             jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
             jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
-            jugador.añadirDiccionario("Rey", [Rey(color)])
+            jugador.añadirDiccionario("rey", [Rey(color)])
             jugador.añadirDiccionario("reina", [Reina(color)])
             jugador.añadirDiccionario("peon_N", [Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N(),Peon_N()])
                     
 
 
-    def moverFicha(self, filaInicial, columnaInicial):
-        movimientoFigura = self.tab[filaInicial][columnaInicial].movimiento()
-        filaFinal = filaInicial + movimientoFigura[0]
-        columnaFinal = columnaInicial + movimientoFigura[1]
+    def moverFicha(self, filaInicial, columnaInicial, filaFinal, columnaFinal):
         if self.areaVacia(filaFinal, columnaFinal):
-            print(f"\nSe ha seleccionado {self.tab[filaInicial][columnaInicial].nombre}\n")
             figura = self.tab[filaInicial][columnaInicial]
             self.tab[filaFinal][columnaFinal] = figura
             self.tab[filaInicial][columnaInicial] = '-'
         else:
-            print("\nMovimiento de pieza no válido.\n")
+            print("\nLa casilla está ocupada por otra pieza. Función aún en construcción.\n")
 
-
+    def esFigura(self, filaInicial, columnaInicial):
+        esUnaFigura = True
+        if self.tab[filaInicial][columnaInicial] == '-':
+            esUnaFigura = False
+        return esUnaFigura
+    
+    def EsFiguraEnemiga(self, filaFinal, columnaFinal, jugadorNoActivo):
+        figuraEsEnemiga = False
+        for figura in jugadorNoActivo.diccionario.values():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
+            if self.tab[filaFinal][columnaFinal] in figura:
+                figuraEsEnemiga = True
+        return figuraEsEnemiga
+    
     def posicionFichaEnemiga(self, filaInicial, columnaInicial, filaFinal, columnaFinal, jugador1, jugador2):
+        for figura in jugador1.diccionario.values():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
+            if self.tab[filaInicial][columnaInicial] in figura:
+                print("La figura seleccionada pertenece al jugador1")
         if self.tab[filaInicial][columnaInicial] in jugador1.diccionario.values() and self.tab[filaInicial][columnaInicial] != '-':
             print("La figura seleccionada pertenece al jugador1")
             if self.tab[filaFinal][columnaFinal] not in jugador1.diccionario.values() and self.tab[filaFinal][columnaFinal] != '-':
@@ -153,14 +165,6 @@ class Tablero():
 
         else:
             print("La figura seleccionada pertenece al jugador enemigo")
-            print(jugador1.diccionario.values())
-            print("\n")
-           # print(jugador2.diccionario.values())
-           # print(self.tab[filaInicial][columnaInicial])
-           # print(self.tab[filaInicial][columnaInicial+1])
-           # print(self.tab[filaInicial][columnaInicial+2])
-           # print(self.tab[filaInicial][columnaInicial+3])
-           # print(self.tab[filaInicial][columnaInicial+4])
-           # print(self.tab[filaInicial][columnaInicial+5])
-           # print(self.tab[filaInicial][columnaInicial+6])
-           # print(self.tab[filaInicial][columnaInicial+7])
+
+    def seleccionarFigura(self, fila, columna):
+        return self.tab[fila][columna]
