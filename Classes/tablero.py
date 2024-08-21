@@ -7,8 +7,6 @@ from Classes.Figuras.Rey import Rey
 from Classes.Figuras.Reina import Reina
 from Classes.Figura import Figura
 
-
-
 class Tablero():
     def __init__(self, jugador1, jugador2):
         self.tab=self.crearTablero()
@@ -55,8 +53,10 @@ class Tablero():
     #Comprobar si la casilla está vacia (al colocar las figuras despues del input del usuario)
 
     def areaVacia(self,x,y):
+        coord = self.traducirIndice(x,y)
+
         buida = False
-        if self.tab[x][y] == '-':
+        if self.tab[coord[0]][coord[1]] == '-':
             buida = True
         return buida
     
@@ -125,23 +125,23 @@ class Tablero():
 
 
     def moverFicha(self, filaInicial, columnaInicial, filaFinal, columnaFinal):
+        coordenadasInicial = self.traducirIndice(filaInicial,columnaInicial)
+        coordenadasFinal = self.traducirIndice(filaFinal,columnaFinal)
+        
         if self.areaVacia(filaFinal, columnaFinal):
-            figura = self.tab[filaInicial][columnaInicial]
-            self.tab[filaFinal][columnaFinal] = figura
-            self.tab[filaInicial][columnaInicial] = '-'
+            figura = self.tab[coordenadasInicial[0]][coordenadasInicial[1]]
+            self.tab[coordenadasFinal[0]][coordenadasFinal[1]] = figura
+            self.tab[coordenadasInicial[0]][coordenadasInicial[1]] = '-'
         else:
             print("\nLa casilla está ocupada por otra pieza. Función aún en construcción.\n")
 
-    def esFigura(self, filaInicial, columnaInicial):
-        esUnaFigura = True
-        if self.tab[filaInicial][columnaInicial] == '-':
-            esUnaFigura = False
-        return esUnaFigura
     
     def EsFiguraEnemiga(self, filaFinal, columnaFinal, jugadorNoActivo):
+        coordenadas = self.traducirIndice(filaFinal,columnaFinal)
+        
         figuraEsEnemiga = False
         for figura in jugadorNoActivo.diccionario.values():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
-            if self.tab[filaFinal][columnaFinal] in figura:
+            if self.tab[coordenadas[0]][coordenadas[1]] in figura:
                 figuraEsEnemiga = True
         return figuraEsEnemiga
     
@@ -167,4 +167,5 @@ class Tablero():
             print("La figura seleccionada pertenece al jugador enemigo")
 
     def seleccionarFigura(self, fila, columna):
-        return self.tab[fila][columna]
+        coordenadas = self.traducirIndice(fila,columna)
+        return self.tab[coordenadas[0]][coordenadas[1]]

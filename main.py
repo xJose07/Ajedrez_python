@@ -1,38 +1,6 @@
 from Classes.Tablero import Tablero
 from Classes.Jugador import Jugador
 
-'''
-acaba = False
-while not acaba:
-    try: 
-        tria=int(input(missatges[lang]["tria"]))
-        if tria >=0:
-            nova[tria]=Crea()
-            while not va.partidaAcabada():
-                tau.imprimeixTauler(dev=False)
-                
-                -----------------------------------------------------------------------------
-                fila = None
-                while not filaOK(fila):
-                    try:
-                        fila = int(input("\nIntrodueix la fila 0-7: "))
-                    except ValueError:
-                        print("No és un dígit")
-                
-                col = None
-                while not colOK(col):
-                    col = input("Introdueix la columna A-H: ").upper()
-                
-                
-                -----------------------------------------------------------------------------
-                #fem el tret
-                tret(nova[tria],fila,col,lang)
-
-    except IndexError:
-        pass
-'''
-
-
 #Creamos los jugadores, y entonces creamos el tablero
 
 jugador1 = Jugador()
@@ -51,49 +19,58 @@ tab.colocarFichasInicializacion(colorB, colorW, jugador1, jugador2)
 
 
 finPartida = False
-while finPartida == False:
+while not finPartida:
     print("\nEste el el tablero de juego: \n")
     tab.imprimirTablero()
     print("\nEs el turno del jugador1, que controla las figuras blancas. Por favor, indica qué figura quieres mover.")
-    columnaInicial = input("Selecciona la columna de la figura (A-H): ")
-    columnaInicial = columnaInicial.upper()
-    filaInicial = int(input("Ahora, selecciona la fila de la figura (0-7): "))
+   
+    filaInicial = None
+    while not tab.filaOK(filaInicial):
+        try:
+            filaInicial = int(input("Ahora, selecciona la fila de la figura (0-7): "))
+        except ValueError:
+            print("No es un digito")
+            
+    columnaInicial = ""
+    while not tab.colOK(columnaInicial):
+        columnaInicial = input("\nSelecciona la columna de la figura (A-H): ").upper()
 
-    #Una vez el usuario ha indicado qué figura quiere mover, hemos de comprobar que la fila y columna existen, y entonces convertimos las posiciones en coordenadas del 0-7
     
-    figuraPosicionInicial = tab.traducirIndice(filaInicial,columnaInicial)
-    figura = tab.seleccionarFigura(figuraPosicionInicial[0], figuraPosicionInicial[1])
-    
-    if tab.filaOK(filaInicial) and tab.colOK(columnaInicial) and tab.esFigura(figuraPosicionInicial[0], figuraPosicionInicial[1]):
-        print(f"Se ha seleccionado la figura {figura}\n")
+    if not tab.areaVacia(filaInicial, columnaInicial):
+        #Una vez el usuario ha indicado qué figura quiere mover, hemos de comprobar que la fila y columna existen, y entonces convertimos las posiciones en coordenadas del 0-7
+        figura = tab.seleccionarFigura(filaInicial, columnaInicial)
+        print(f"Se ha seleccionado la figura '{figura.nombre}'\n")
 
         tab.imprimirTablero()
 
         #Ahora le pedimos al usuario que seleccione la casilla donde quiere mover la figura y repetimos el proceso anterior:
+        filaFinal = None
+        while not tab.filaOK(filaFinal):
+            try:
+                filaFinal = int(input("Ahora, selecciona la fila donde quieres mover la figura (0-7): "))
+            except ValueError:
+                print("No es un digito")
+                
+        columnaFinal = ""
+        while not tab.colOK(columnaFinal):
+            columnaFinal = input("\nSelecciona la columna donde quieres mover la figura (A-H): ").upper()
+         
+            
+        casillaFinal = tab.seleccionarFigura(filaFinal, columnaFinal)
+        print(f"Se ha seleccionado la figura {casillaFinal}\n")
+        #print(f"Se ha seleccionado la casilla (4,0) con la figura {casillaFinal.nombre}\n")
 
-        columnaFinal = input("\nSelecciona la columna donde quieres mover la figura (A-H): ")
-        columnaFinal = columnaFinal.upper()
-        filaFinal = int(input("Ahora, selecciona la fila donde quieres mover la figura (0-7): "))
-        if tab.filaOK(filaFinal) and tab.colOK(columnaFinal):
-            figuraPosicionFinal = tab.traducirIndice(filaFinal,columnaFinal)
-            casillaFinal = tab.seleccionarFigura(figuraPosicionFinal[0], figuraPosicionFinal[1])
-            print(f"Se ha seleccionado la figura {casillaFinal}\n")
+        #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
+        if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugador2)):
+            print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
 
-            #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
-            if tab.seleccionarFigura(figuraPosicionInicial[0], figuraPosicionInicial[1]).movimientoFiguraValido(figuraPosicionInicial[0], figuraPosicionInicial[1], figuraPosicionFinal[0], figuraPosicionFinal[1], tab.EsFiguraEnemiga(figuraPosicionFinal[0], figuraPosicionFinal[1], jugador2)):
-                print(f"El movimiento de la figura '{figura}' a la casilla '{casillaFinal}' es válido \n")
-
-                #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
-                tab.moverFicha(figuraPosicionInicial[0], figuraPosicionInicial[1], figuraPosicionFinal[0], figuraPosicionFinal[1])
-            else:
-                print(f"El movimiento de la figura '{figura}' a la casilla '{casillaFinal}' no es válido!")
+            #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
+            tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal)
+        else:
+            print(f"El movimiento de la figura '{figura}' a la casilla '{casillaFinal}' no es válido!")
     else:
         print("La casilla seleccionada no contiene una figura válida.")
             
-            
-    
-
-
 
 #tab.posicionFichaEnemiga(6, 0, 1, 0, jugador1, jugador2)
 
