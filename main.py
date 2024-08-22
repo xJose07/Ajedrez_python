@@ -2,27 +2,29 @@ from Classes.Tablero import Tablero
 from Classes.Jugador import Jugador
 
 #Creamos los jugadores, y entonces creamos el tablero
+colorW = "Blanco"
+colorB = "Negro"
 
-jugador1 = Jugador()
-jugador2 = Jugador()
+jugador1 = Jugador("jugador Blanco", colorW)
+jugador2 = Jugador("jugador Negro", colorB)
 tab = Tablero(jugador1, jugador2)
 
 #Creamos las figuras y las añadimos al diccionario de cada jugador
-colorW = "white"
-tab.crearFiguras(jugador1, colorW)
 
-colorB = "black"
+tab.crearFiguras(jugador1, colorW)
 tab.crearFiguras(jugador2, colorB)
 
 #Colocamos las figuras en el tablero
 tab.colocarFichasInicializacion(colorB, colorW, jugador1, jugador2)
 
+jugadorActivo = jugador1
+jugadorNoActivo = jugador2
 
 finPartida = False
 while not finPartida:
     print("\nEste el el tablero de juego: \n")
     tab.imprimirTablero()
-    print("\nEs el turno del jugador1, que controla las figuras blancas. Por favor, indica qué figura quieres mover.")
+    print(f"\nEs el turno del {jugadorActivo.nombre}, que controla las figuras de color {jugadorActivo.color}. Por favor, indica qué figura quieres mover: ")
    
     filaInicial = None
     while not tab.filaOK(filaInicial):
@@ -30,44 +32,49 @@ while not finPartida:
             filaInicial = int(input("Ahora, selecciona la fila de la figura (0-7): "))
         except ValueError:
             print("No es un digito")
-            
+
     columnaInicial = ""
     while not tab.colOK(columnaInicial):
-        columnaInicial = input("\nSelecciona la columna de la figura (A-H): ").upper()
+        columnaInicial = input("Selecciona la columna de la figura (A-H): ").upper()
 
     
     if not tab.areaVacia(filaInicial, columnaInicial):
         #Una vez el usuario ha indicado qué figura quiere mover, hemos de comprobar que la fila y columna existen, y entonces convertimos las posiciones en coordenadas del 0-7
         figura = tab.seleccionarFigura(filaInicial, columnaInicial)
-        print(f"Se ha seleccionado la figura '{figura.nombre}'\n")
 
-        tab.imprimirTablero()
+        if tab.EsFiguraJugadorActivo(filaInicial, columnaInicial, jugadorActivo):
+            print(f"\nSe ha seleccionado la figura '{figura.nombre}'\n")
 
-        #Ahora le pedimos al usuario que seleccione la casilla donde quiere mover la figura y repetimos el proceso anterior:
-        filaFinal = None
-        while not tab.filaOK(filaFinal):
-            try:
-                filaFinal = int(input("Ahora, selecciona la fila donde quieres mover la figura (0-7): "))
-            except ValueError:
-                print("No es un digito")
-                
-        columnaFinal = ""
-        while not tab.colOK(columnaFinal):
-            columnaFinal = input("\nSelecciona la columna donde quieres mover la figura (A-H): ").upper()
-         
+            tab.imprimirTablero()
+
+            #Ahora le pedimos al usuario que seleccione la casilla donde quiere mover la figura y repetimos el proceso anterior:
+            filaFinal = None
+            while not tab.filaOK(filaFinal):
+                try:
+                    filaFinal = int(input("Ahora, selecciona la fila donde quieres mover la figura (0-7): "))
+                except ValueError:
+                    print("No es un digito")
+                    
+            columnaFinal = ""
+            while not tab.colOK(columnaFinal):
+                columnaFinal = input("\nSelecciona la columna donde quieres mover la figura (A-H): ").upper()
             
-        casillaFinal = tab.seleccionarFigura(filaFinal, columnaFinal)
-        print(f"Se ha seleccionado la figura {casillaFinal}\n")
-        #print(f"Se ha seleccionado la casilla (4,0) con la figura {casillaFinal.nombre}\n")
+                
+            casillaFinal = tab.seleccionarFigura(filaFinal, columnaFinal)
+            print(f"Se ha seleccionado la figura {casillaFinal}\n")
+            #print(f"Se ha seleccionado la casilla (4,0) con la figura {casillaFinal.nombre}\n")
 
-        #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
-        if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugador2)):
-            print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
+            #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
+            if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo)):
+                print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
 
-            #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
-            tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal)
+                #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
+                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                jugadorActivo, jugadorNoActivo = tab.cambiarJugadorActivo(jugador1, jugador2, jugadorActivo)
+            else:
+                print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' no es válido!")
         else:
-            print(f"El movimiento de la figura '{figura}' a la casilla '{casillaFinal}' no es válido!")
+            print(f"Se ha seleccionado una figura del {jugadorNoActivo.nombre}. Por favor, selecciona una figura del {jugadorActivo.nombre}, ya que es su turno para jugar.")
     else:
         print("La casilla seleccionada no contiene una figura válida.")
             

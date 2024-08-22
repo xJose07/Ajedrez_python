@@ -107,14 +107,14 @@ class Tablero():
                         self.tab[i][j] = jugador1.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
         
     def crearFiguras(self, jugador, color):     
-        if color == "white":
+        if color == "Blanco":
             jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
             jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
             jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
             jugador.añadirDiccionario("rey", [Rey(color)])
             jugador.añadirDiccionario("reina", [Reina(color)])
             jugador.añadirDiccionario("peon_B", [Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B(),Peon_B()])
-        elif color == "black":
+        elif color == "Negro":
             jugador.añadirDiccionario("torre", [Torre(color), Torre(color)])
             jugador.añadirDiccionario("caballo", [Caballo(color), Caballo(color)])
             jugador.añadirDiccionario("alfil", [Alfil(color), Alfil(color)])
@@ -124,11 +124,15 @@ class Tablero():
                     
 
 
-    def moverFicha(self, filaInicial, columnaInicial, filaFinal, columnaFinal):
+    def moverFicha(self, filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo):
         coordenadasInicial = self.traducirIndice(filaInicial,columnaInicial)
         coordenadasFinal = self.traducirIndice(filaFinal,columnaFinal)
         
         if self.areaVacia(filaFinal, columnaFinal):
+            figura = self.tab[coordenadasInicial[0]][coordenadasInicial[1]]
+            self.tab[coordenadasFinal[0]][coordenadasFinal[1]] = figura
+            self.tab[coordenadasInicial[0]][coordenadasInicial[1]] = '-'
+        elif self.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo):
             figura = self.tab[coordenadasInicial[0]][coordenadasInicial[1]]
             self.tab[coordenadasFinal[0]][coordenadasFinal[1]] = figura
             self.tab[coordenadasInicial[0]][coordenadasInicial[1]] = '-'
@@ -145,27 +149,22 @@ class Tablero():
                 figuraEsEnemiga = True
         return figuraEsEnemiga
     
-    def posicionFichaEnemiga(self, filaInicial, columnaInicial, filaFinal, columnaFinal, jugador1, jugador2):
-        for figura in jugador1.diccionario.values():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
-            if self.tab[filaInicial][columnaInicial] in figura:
-                print("La figura seleccionada pertenece al jugador1")
-        if self.tab[filaInicial][columnaInicial] in jugador1.diccionario.values() and self.tab[filaInicial][columnaInicial] != '-':
-            print("La figura seleccionada pertenece al jugador1")
-            if self.tab[filaFinal][columnaFinal] not in jugador1.diccionario.values() and self.tab[filaFinal][columnaFinal] != '-':
-                print("El jugador ha movido su figura a una casilla con una figura enemiga")
-            elif self.tab[filaFinal][columnaFinal] == '-':
-                print("El jugador ha movido su figura a una casilla vacía")
-            else:
-                print("El jugador ha movido su figura a una casilla con una figura própia. Movimiento no válido")
+    def EsFiguraJugadorActivo(self, filaInicial, columnaInicial, jugadorActivo):
+        coordenadas = self.traducirIndice(filaInicial,columnaInicial)
 
-        elif self.tab[filaInicial][columnaInicial] in jugador2.diccionario.values() and self.tab[filaInicial][columnaInicial] != '-':
-            print("La figura seleccionada pertenece al jugador2")
-        elif self.tab[filaInicial][columnaInicial] == '-':
-            print("Se ha seleccionado una casilla vacía")
-
-        else:
-            print("La figura seleccionada pertenece al jugador enemigo")
-
+        figuraEsAmiga = False
+        for figura in jugadorActivo.diccionario.values():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
+            if self.tab[coordenadas[0]][coordenadas[1]] in figura:
+                figuraEsAmiga = True
+        return figuraEsAmiga
+    
     def seleccionarFigura(self, fila, columna):
         coordenadas = self.traducirIndice(fila,columna)
         return self.tab[coordenadas[0]][coordenadas[1]]
+
+    def cambiarJugadorActivo(self, jugador1, jugador2, jugadorActivo):
+        if jugadorActivo == jugador1:
+            return jugador2, jugador1
+        else:
+            return jugador1, jugador2
+

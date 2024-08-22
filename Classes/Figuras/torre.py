@@ -7,9 +7,9 @@ class Torre(Figura):
         self.color = color
         
     def getSimbol(self):
-        if self.color == "white":
+        if self.color == "Blanco":
             return self.simbol
-        elif self.color == "black":
+        elif self.color == "Negro":
             return self.simbolN   
 
         
