@@ -31,7 +31,6 @@ class Tablero():
         for i in range(len(self.tab)):
             print(i,end=s)
             for j in range(len(self.tab[0])):
-                #if type(self.tab[i][j]) == Torre or type(self.tab[i][j]) == Alfil or type(self.tab[i][j]) == Caballo or type(self.tab[i][j])==Reina or type(self.tab[i][j])==Rey or type(self.tab[i][j])==Peon_N or type(self.tab[i][j])==Peon_B:
                 if isinstance(self.tab[i][j], Figura):
                     print(self.tab[i][j].getSimbol(),end=s)
                 else:

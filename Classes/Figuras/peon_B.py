@@ -9,12 +9,12 @@ class Peon_B(Figura):
         self.primerMovimiento = True
     
         
-    def movimientoFiguraValido(self, filaInicial, columnaInicial, filaFinal, columnaFinal, figuraEnemiga):
+    def movimientoFiguraValido(self, filaInicial, columnaInicial, filaFinal, columnaFinal, figuraEnemiga, figuraAmiga):
         coordInicial =filaInicial,self.indexf.index(columnaInicial) #devolvemos la fila y la columna para poder trabajar con las coordenadas en el tablero
         coordFinal =filaFinal,self.indexf.index(columnaFinal) #devolvemos la fila y la columna para poder trabajar con las coordenadas en el tablero
 
         movimientoValido = False
-        if coordFinal[1] == coordInicial[1] and not figuraEnemiga:            #Comprobamos que no se ha realizado un cambio de columna. En este caso, no podemos eliminar l figura enemiga que está justo delante del peón
+        if coordFinal[1] == coordInicial[1] and not figuraEnemiga and not figuraAmiga:            #Comprobamos que no se ha realizado un cambio de columna. En este caso, no podemos eliminar l figura enemiga que está justo delante del peón
             if coordFinal[0] == coordInicial[0] -1:                           #Comprobamos que el cambio de fila es de 1 en el sentido correcto
                 movimientoValido = True
                 self.primerMovimiento = False

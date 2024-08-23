@@ -65,10 +65,10 @@ while not finPartida:
             #print(f"Se ha seleccionado la casilla (4,0) con la figura {casillaFinal.nombre}\n")
 
             #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
-            if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo)):
+            if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo), tab.EsFiguraJugadorActivo(filaFinal, columnaFinal, jugadorActivo)):
                 print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
 
-                #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
+                #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla y cambiamos de jugador
                 tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
                 jugadorActivo, jugadorNoActivo = tab.cambiarJugadorActivo(jugador1, jugador2, jugadorActivo)
             else:
@@ -79,7 +79,7 @@ while not finPartida:
         print("La casilla seleccionada no contiene una figura válida.")
             
 
-#tab.posicionFichaEnemiga(6, 0, 1, 0, jugador1, jugador2)
+#Bug a corregir: Caballo y Rey necesitan tener en cuenta si se mueven en casilla con figura enemiga
 
 #Los objetos del tablero no concuerdan con los de los diccionarios de los jugadores. Al crear el tablero se deben
 #usar las piezas que están en los diccionarios de los jugadores. Una vez este hecho, podremos continuar con el movimiento.
