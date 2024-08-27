@@ -18,7 +18,7 @@ class Peon_B(Figura):
             if coordFinal[0] == coordInicial[0] -1:                           #Comprobamos que el cambio de fila es de 1 en el sentido correcto
                 movimientoValido = True
                 self.primerMovimiento = False
-            if coordFinal[0] == coordInicial[0] -2 and self.primerMovimiento:
+            if coordFinal[0] == coordInicial[0] -2 and self.primerMovimiento and not figuraEnemiga and not figuraAmiga:
                 movimientoValido = True
                 self.primerMovimiento = False
         if (coordFinal[1] == coordInicial[1] +1 or coordFinal[1] == coordInicial[1] -1) and figuraEnemiga:      #Comprobamos que solo se realiza un cambio de columna para eliminar una figura enemiga

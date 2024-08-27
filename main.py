@@ -65,7 +65,7 @@ while not finPartida:
             #print(f"Se ha seleccionado la casilla (4,0) con la figura {casillaFinal.nombre}\n")
 
             #Ahora sabemos qué figura quiere mover el jugador, y donde quire moverla. Hemos de comprobar que la figura pueda realizar este movimiento:
-            if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo), tab.EsFiguraJugadorActivo(filaFinal, columnaFinal, jugadorActivo)):
+            if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo), tab.EsFiguraJugadorActivo(filaFinal, columnaFinal, jugadorActivo)) and tab.figuraEnCamino(filaInicial, columnaInicial, filaFinal, columnaFinal, figura):
                 print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
 
                 #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla y cambiamos de jugador

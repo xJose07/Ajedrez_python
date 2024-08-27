@@ -161,6 +161,42 @@ class Tablero():
         coordenadas = self.traducirIndice(fila,columna)
         return self.tab[coordenadas[0]][coordenadas[1]]
 
+    def figuraEnCamino(self, filaInicial, columnaInicial, filaFinal, columnaFinal, figura):
+        coordenadasIniciales = self.traducirIndice(filaInicial,columnaInicial)
+        coordenadasFinales = self.traducirIndice(filaFinal,columnaFinal)
+        caminoVacio = True
+        if figura.nombre == "TorreBlanco" or figura.nombre == "TorreNegro":
+                print("Se ha decidido mover una torre")
+                if coordenadasIniciales[0] > coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
+                    print("Se realizará un movimiento vertical")
+                    for fila in range(coordenadasIniciales[0] - coordenadasFinales[0] -1):
+                        print (self.tab[coordenadasIniciales[0] - fila - 1][coordenadasIniciales[1]])
+                        if self.tab[coordenadasIniciales[0] - fila - 1][coordenadasIniciales[1]] != "-":
+                            caminoVacio = False
+
+                if coordenadasIniciales[0] < coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
+                    print("Se realizará un movimiento vertical")
+                    for fila in range(coordenadasFinales[0] - coordenadasIniciales[0] -1):
+                        print (self.tab[fila + coordenadasIniciales[0]+1][coordenadasIniciales[1]])
+                        if self.tab[fila + coordenadasIniciales[0]+1][coordenadasIniciales[1]] != "-":
+                            caminoVacio = False
+
+                if coordenadasIniciales[1] > coordenadasFinales[1]:                                 #Ejecutamos el codigo para detectar si al moverse horizontalmente hay una pieza en medio
+                    print("Se realizará un movimiento horizontal")
+                    for columna in range(coordenadasIniciales[1] - coordenadasFinales[1] -1):
+                        print (self.tab[coordenadasIniciales[0]][coordenadasIniciales[1] - columna - 1])
+                        if self.tab[coordenadasIniciales[0]][coordenadasIniciales[1] - columna - 1] != "-":
+                            caminoVacio = False
+
+                if coordenadasIniciales[1] < coordenadasFinales[1]:                                 #Ejecutamos el codigo para detectar si al moverse horizontalmente hay una pieza en medio
+                    print("Se realizará un movimiento horizontal")
+                    for columna in range(coordenadasFinales[1] - coordenadasIniciales[1] -1):
+                        print (self.tab[coordenadasIniciales[0]][columna + coordenadasIniciales[1]+1])
+                        if self.tab[coordenadasIniciales[0]][columna + coordenadasIniciales[1]+1] != "-":
+                            caminoVacio = False
+
+        return caminoVacio
+
     def cambiarJugadorActivo(self, jugador1, jugador2, jugadorActivo):
         if jugadorActivo == jugador1:
             return jugador2, jugador1
