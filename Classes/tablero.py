@@ -165,6 +165,24 @@ class Tablero():
         coordenadasIniciales = self.traducirIndice(filaInicial,columnaInicial)
         coordenadasFinales = self.traducirIndice(filaFinal,columnaFinal)
         caminoVacio = True
+
+        if figura.nombre == "Peon Blanco":
+                print("Se ha decidido mover una torre")
+                if coordenadasIniciales[0] > coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
+                    print("Se realizará un movimiento vertical hacia arriba")
+                    for fila in range(coordenadasIniciales[0] - coordenadasFinales[0] -1):
+                        print (self.tab[coordenadasIniciales[0] - fila - 1][coordenadasIniciales[1]])
+                        if self.tab[coordenadasIniciales[0] - fila - 1][coordenadasIniciales[1]] != "-":
+                            caminoVacio = False
+
+        if figura.nombre == "Peon Negro":
+                if coordenadasIniciales[0] < coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
+                    print("Se realizará un movimiento vertical hacia abajo")
+                    for fila in range(coordenadasFinales[0] - coordenadasIniciales[0] -1):
+                        print (self.tab[fila + coordenadasIniciales[0]+1][coordenadasIniciales[1]])
+                        if self.tab[fila + coordenadasIniciales[0]+1][coordenadasIniciales[1]] != "-":
+                            caminoVacio = False
+                            
         if figura.nombre == "TorreBlanco" or figura.nombre == "TorreNegro":
                 print("Se ha decidido mover una torre")
                 if coordenadasIniciales[0] > coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
