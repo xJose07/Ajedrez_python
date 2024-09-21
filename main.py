@@ -20,8 +20,10 @@ tab.colocarFichasInicializacion(colorB, colorW, jugador1, jugador2)
 jugadorActivo = jugador1
 jugadorNoActivo = jugador2
 
-finPartida = False
-while not finPartida:
+
+reyBlanco = True
+reyNegro = True
+while reyBlanco and reyNegro:
     print("\nEste el el tablero de juego: \n")
     tab.imprimirTablero()
     print(f"\nEs el turno del {jugadorActivo.nombre}, que controla las figuras de color {jugadorActivo.color}. Por favor, indica qué figura quieres mover: ")
@@ -70,6 +72,14 @@ while not finPartida:
 
                 #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla y cambiamos de jugador
                 tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                
+                if tab.estaElReyBlancoVivo(jugador1) is False:
+                    print("¡El rey blanco ha muerto, la partida ha terminado, y el jugador negro gana!")
+                    reyBlanco = False
+                if tab.estaElReyNegroVivo(jugador2) is False:
+                    print("¡El rey negro ha muerto, la partida ha terminado, y el jugador blanco gana!")
+                    reyNegro = False
+                    
                 jugadorActivo, jugadorNoActivo = tab.cambiarJugadorActivo(jugador1, jugador2, jugadorActivo)
             else:
                 print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' no es válido!")
@@ -79,23 +89,7 @@ while not finPartida:
         print("La casilla seleccionada no contiene una figura válida.")
             
 
-#Bug a corregir: Caballo y Rey necesitan tener en cuenta si se mueven en casilla con figura enemiga
-
-#Los objetos del tablero no concuerdan con los de los diccionarios de los jugadores. Al crear el tablero se deben
-#usar las piezas que están en los diccionarios de los jugadores. Una vez este hecho, podremos continuar con el movimiento.
 
 
 
-#print(tab.jugador1.devolverDiccionario())
-
-
-#tab.moverFichas(0, 0, 3, 3)
-
-#tab.imprimirTablero()
-
-#tab.moverFichas(0, 7, 4, 7)
-
-#tab.imprimirTablero()
-
-#tab.printTorre()
 

@@ -132,6 +132,10 @@ class Tablero():
             self.tab[coordenadasFinal[0]][coordenadasFinal[1]] = figura
             self.tab[coordenadasInicial[0]][coordenadasInicial[1]] = '-'
         elif self.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo):
+            if self.tab[coordenadasFinal[0]][coordenadasFinal[1]].nombre == "ReyBlanco" or self.tab[coordenadasFinal[0]][coordenadasFinal[1]].nombre == "ReyNegro":
+                print(jugadorNoActivo.devolverDiccionario())
+                jugadorNoActivo.diccionario.pop("rey")
+                print(jugadorNoActivo.devolverDiccionario())
             figura = self.tab[coordenadasInicial[0]][coordenadasInicial[1]]
             self.tab[coordenadasFinal[0]][coordenadasFinal[1]] = figura
             self.tab[coordenadasInicial[0]][coordenadasInicial[1]] = '-'
@@ -160,6 +164,7 @@ class Tablero():
     def seleccionarFigura(self, fila, columna):
         coordenadas = self.traducirIndice(fila,columna)
         return self.tab[coordenadas[0]][coordenadas[1]]
+    
 
     def figuraEnCamino(self, filaInicial, columnaInicial, filaFinal, columnaFinal, figura):
         coordenadasIniciales = self.traducirIndice(filaInicial,columnaInicial)
@@ -167,7 +172,6 @@ class Tablero():
         caminoVacio = True
 
         if figura.nombre == "Peon Blanco":
-                print("Se ha decidido mover una torre")
                 if coordenadasIniciales[0] > coordenadasFinales[0]:                                 #Ejecutamos el codigo para detectar si al moverse verticalmente hay una pieza en medio
                     print("Se realizará un movimiento vertical hacia arriba")
                     for fila in range(coordenadasIniciales[0] - coordenadasFinales[0] -1):
@@ -313,4 +317,24 @@ class Tablero():
             return jugador2, jugador1
         else:
             return jugador1, jugador2
+    
 
+    def estaElReyBlancoVivo(self, jugador1):
+        ReyBlancoVivo = True
+        for figura in jugador1.diccionario.keys():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
+            if "rey" in figura:
+                ReyBlancoVivo = True
+                return ReyBlancoVivo
+            else: 
+                ReyBlancoVivo = False
+        return ReyBlancoVivo
+
+    def estaElReyNegroVivo(self, jugador2):
+        ReyNegroVivo = True
+        for figura in jugador2.diccionario.keys():                  #diccionario.values() nos devuelve una lista con los valores. Debemos entrar dentro de esa lista y entonces mirar si en las listas con las figuras está la que buscamos ej: [[figura torre1, figura torre2], [figura caballo1, figura caballo 2], etc]
+            if "rey" in figura:
+                ReyNegroVivo = True
+                return ReyNegroVivo
+            else: 
+                ReyNegroVivo = False
+        return ReyNegroVivo
