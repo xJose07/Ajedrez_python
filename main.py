@@ -70,9 +70,53 @@ while reyBlanco and reyNegro:
             if figura.movimientoFiguraValido(filaInicial, columnaInicial, filaFinal, columnaFinal, tab.EsFiguraEnemiga(filaFinal, columnaFinal, jugadorNoActivo), tab.EsFiguraJugadorActivo(filaFinal, columnaFinal, jugadorActivo)) and tab.figuraEnCamino(filaInicial, columnaInicial, filaFinal, columnaFinal, figura):
                 print(f"El movimiento de la figura '{figura.nombre}' a la casilla '{casillaFinal}' es válido \n")
 
-                #Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla y cambiamos de jugador
-                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
-                
+                #Aquí haremos el movimiento "enroque". En el objeto "Rey" revisamos si es el primer movimiento. Entonces hemos de revisar si la torre
+                #del lado donde se hace el movimiento se ha movido, y si el camino entre el rey y la torre está libre. Entonces haríamos el movimiento
+                #Para el Rey Blanco hemos de hacer las comprovaciones cuando se mueve a la casilla C7 o G7. 
+                #Para el Rey Blanco hemos de hacer las comprovaciones cuando se mueve a la casilla B0 o F0.
+                #Primero miraremos el jugador que está activo y si se ha seleccionado el rey. Entonces revisamos si se quiere realizar un movimiento
+                #lateral de 2 casillas
+
+                print(jugadorActivo)
+                print(figura.nombre)
+                print(columnaInicial.upper())
+                print(columnaFinal.upper())
+
+
+                if figura.nombre == "ReyBlanco" and (columnaInicial.upper() == "E" and columnaFinal.upper() == "G" or columnaInicial.upper() == "E" and columnaFinal.upper() == "C"):
+                    print("Hemos entrado en el loop del enroque")
+                    #Ahora hemos de ver a qué lado del tablero se quiere realizar el movimiento,
+                    if columnaInicial.upper() == "E" and columnaFinal.upper() == "G":
+                        #Si el movimiento es +2, entonces se debe revisar que las casillas F7 y G7 están vacías, y que la torre en H7 no se ha movido aún
+                        casillaF7 = tab.seleccionarFigura(7, "F")
+                        casillaG7 = tab.seleccionarFigura(7, "G")
+                        casillaH7 = tab.seleccionarFigura(7, "H")
+                        if casillaF7 == "-" and casillaG7 == "-" and casillaH7.nombre == "TorreBlanco":
+                            if casillaH7.primerMovimiento == True:
+                                #Ahora moveríamos el rey a G7
+                                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                                #Ahora movemos la torre a F7
+                                tab.moverFicha(7, "H", 7, "F", jugadorNoActivo)
+                    elif columnaInicial.upper() == "E" and columnaFinal.upper() == "C":
+                        #Si el movimiento es -2, entonces se debe revisar que las casillas D7, C7 Y B7 están vacías, y que la torre en A7 no se ha movido aún
+                        casillaD7 = tab.seleccionarFigura(7, "D")
+                        casillaC7 = tab.seleccionarFigura(7, "C")
+                        casillaB7 = tab.seleccionarFigura(7, "B")
+                        casillaA7 = tab.seleccionarFigura(7, "A")
+                        if casillaD7 == "-" and casillaC7 == "-" and casillaB7 == "-" and casillaA7.nombre == "TorreBlanco":
+                            if casillaA7.primerMovimiento == True:
+                                #Ahora moveríamos el rey a C7
+                                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                                #Ahora movemos la torre a D7
+                                tab.moverFicha(7, "A", 7, "D", jugadorNoActivo)
+                            
+                        
+                elif jugadorActivo == jugador2 and figura.nombre == "ReyNegro":
+                    pass
+                else:
+                    #En este caso no hay enroque. Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
+                    tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                #Revisamos si uno de los reyes ha muerto, y si no es así cambiamos de jugador
                 if tab.estaElReyBlancoVivo(jugador1) is False:
                     print("¡El rey blanco ha muerto, la partida ha terminado, y el jugador negro gana!")
                     reyBlanco = False

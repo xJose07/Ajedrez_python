@@ -6,6 +6,7 @@ class Torre(Figura):
         self.simbol = "♜"
         self.color = color
         self.nombre = "Torre" + self.color
+        self.primerMovimiento = True
         
     def getSimbol(self):
         if self.color == "Blanco":
@@ -23,6 +24,7 @@ class Torre(Figura):
     
         if (coordFinal[1] == coordInicial[1]) and (coordFinal[0] != coordInicial[0]) and not figuraAmiga:
             movimientoValido = True
+        self.primerMovimiento = False
         return movimientoValido    
 
     

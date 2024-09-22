@@ -76,9 +76,9 @@ class Tablero():
                     if j == 5:
                         self.tab[i][j] = jugador2.diccionario['alfil'][1]#poner aqui los 'objetos/fichas' de uno de los alfiles
                     if j == 3:
-                        self.tab[i][j] = jugador2.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
-                    if j == 4:
                         self.tab[i][j] = jugador2.diccionario['rey'][0]#poner aqui los 'objetos/fichas' del rey
+                    if j == 4:
+                        self.tab[i][j] = jugador2.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
             if i == 1:
                 for j in range(8):
                     self.tab[i][j] = jugador2.diccionario['peon_N'][j]#poner aqui los 'objetos/fichas' de los peones negros
@@ -101,9 +101,9 @@ class Tablero():
                     if j == 5:
                         self.tab[i][j] = jugador1.diccionario['alfil'][1]#poner aqui los 'objetos/fichas' de uno de los alfiles
                     if j == 3:
-                        self.tab[i][j] = jugador1.diccionario['rey'][0]#poner aqui los 'objetos/fichas' del rey
-                    if j == 4:
                         self.tab[i][j] = jugador1.diccionario['reina'][0]#poner aqui los 'objetos/fichas' de la reina
+                    if j == 4:
+                        self.tab[i][j] = jugador1.diccionario['rey'][0]#poner aqui los 'objetos/fichas' del rey
         
     def crearFiguras(self, jugador, color):     
         if color == "Blanco":
