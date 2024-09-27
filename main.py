@@ -77,14 +77,7 @@ while reyBlanco and reyNegro:
                 #Primero miraremos el jugador que está activo y si se ha seleccionado el rey. Entonces revisamos si se quiere realizar un movimiento
                 #lateral de 2 casillas
 
-                print(jugadorActivo)
-                print(figura.nombre)
-                print(columnaInicial.upper())
-                print(columnaFinal.upper())
-
-
                 if figura.nombre == "ReyBlanco" and (columnaInicial.upper() == "E" and columnaFinal.upper() == "G" or columnaInicial.upper() == "E" and columnaFinal.upper() == "C"):
-                    print("Hemos entrado en el loop del enroque")
                     #Ahora hemos de ver a qué lado del tablero se quiere realizar el movimiento,
                     if columnaInicial.upper() == "E" and columnaFinal.upper() == "G":
                         #Si el movimiento es +2, entonces se debe revisar que las casillas F7 y G7 están vacías, y que la torre en H7 no se ha movido aún
@@ -98,7 +91,7 @@ while reyBlanco and reyNegro:
                                 #Ahora movemos la torre a F7
                                 tab.moverFicha(7, "H", 7, "F", jugadorNoActivo)
                     elif columnaInicial.upper() == "E" and columnaFinal.upper() == "C":
-                        #Si el movimiento es -2, entonces se debe revisar que las casillas D7, C7 Y B7 están vacías, y que la torre en A7 no se ha movido aún
+                        #Si el movimiento es -2, entonces se debe revisar que las casillas D7, C7 y B7 están vacías, y que la torre en A7 no se ha movido aún
                         casillaD7 = tab.seleccionarFigura(7, "D")
                         casillaC7 = tab.seleccionarFigura(7, "C")
                         casillaB7 = tab.seleccionarFigura(7, "B")
@@ -111,8 +104,32 @@ while reyBlanco and reyNegro:
                                 tab.moverFicha(7, "A", 7, "D", jugadorNoActivo)
                             
                         
-                elif jugadorActivo == jugador2 and figura.nombre == "ReyNegro":
-                    pass
+                if figura.nombre == "ReyNegro" and (columnaInicial.upper() == "D" and columnaFinal.upper() == "B" or columnaInicial.upper() == "D" and columnaFinal.upper() == "F"):
+                    #Ahora hemos de ver a qué lado del tablero se quiere realizar el movimiento,
+                    if columnaInicial.upper() == "D" and columnaFinal.upper() == "B":
+                        #Si el movimiento es +2, entonces se debe revisar que las casillas B0 y C0 están vacías, y que la torre en A7 no se ha movido aún
+                        casillaC0 = tab.seleccionarFigura(0, "C")
+                        casillaB0 = tab.seleccionarFigura(0, "B")
+                        casillaA0 = tab.seleccionarFigura(0, "A")
+                        if casillaC0 == "-" and casillaB0 == "-" and casillaA0.nombre == "TorreNegro":
+                            if casillaA0.primerMovimiento == True:
+                                #Ahora moveríamos el rey a B0
+                                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                                #Ahora movemos la torre a C0
+                                tab.moverFicha(0, "A", 0, "C", jugadorNoActivo)
+                    elif columnaInicial.upper() == "D" and columnaFinal.upper() == "F":
+                        #Si el movimiento es -2, entonces se debe revisar que las casillas E0, F0 y G0 están vacías, y que la torre en H0 no se ha movido aún
+                        casillaE0 = tab.seleccionarFigura(0, "E")
+                        casillaF0 = tab.seleccionarFigura(0, "F")
+                        casillaG0 = tab.seleccionarFigura(0, "G")
+                        casillaH0 = tab.seleccionarFigura(0, "H")
+                        if casillaE0 == "-" and casillaF0 == "-" and casillaG0 == "-" and casillaH0.nombre == "TorreNegro":
+                            if casillaH0.primerMovimiento == True:
+                                #Ahora moveríamos el rey a F0
+                                tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
+                                #Ahora movemos la torre a E0
+                                tab.moverFicha(0, "H", 0, "E", jugadorNoActivo) 
+                    
                 else:
                     #En este caso no hay enroque. Si el movimiento es válido para la figura, entonces movemos la figura a su nueva casilla
                     tab.moverFicha(filaInicial, columnaInicial, filaFinal, columnaFinal, jugadorNoActivo)
